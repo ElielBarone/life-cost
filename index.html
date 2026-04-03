@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Antes de comprar, pense no custo total ao final da vida útil: veja quanto o mesmo valor poupado hoje poderia se tornar (cenário ilustrativo) e o equivalente em horas de trabalho."
+    />
+    <title>Custo ao longo da vida — Custo de oportunidade</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Ir ao conteúdo</a>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <div class="site-header__top">
+          <h1 class="site-title">Custo ao longo da vida</h1>
+          <button
+            type="button"
+            class="btn-scenario"
+            id="btn-scenario-open"
+            aria-haspopup="dialog"
+            aria-controls="scenario-dialog"
+          >
+            Parâmetros do cenário
+          </button>
+        </div>
+        <p class="site-tagline">
+          Antes de comprar, pense no custo total ao final da vida útil: esse
+          mesmo valor, poupado hoje, poderia se tornar
+          <span id="site-tagline-fv">R$?</span>.
+        </p>
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <div id="step-input" class="flow-step">
+        <form id="calc-form" class="stack">
+          <section class="card card--inputs" aria-labelledby="inputs-heading">
+            <h2 id="inputs-heading" class="card__title">Seu cenário</h2>
+
+            <div class="field">
+              <label for="age">Sua idade</label>
+              <input
+                id="age"
+                name="age"
+                type="number"
+                inputmode="numeric"
+                min="0"
+                max="120"
+                required
+              />
+            </div>
+
+            <div class="field">
+              <label for="price">Valor do bem (R$)</label>
+              <input
+                id="price"
+                name="price"
+                type="text"
+                inputmode="decimal"
+                autocomplete="off"
+                spellcheck="false"
+                required
+                placeholder="ex.: 60.000"
+              />
+            </div>
+
+            <div
+              class="field field--good-pick"
+              id="good-pick-field"
+              hidden
+            >
+              <p id="good-pick-heading" class="good-pick-heading">
+                Ou escolha um exemplo
+              </p>
+              <ul
+                id="good-pick-grid"
+                class="good-pick-grid"
+                role="list"
+                aria-labelledby="good-pick-heading"
+              ></ul>
+            </div>
+
+            <button type="submit" class="btn-primary">Calcular</button>
+          </section>
+        </form>
+      </div>
+
+      <div id="step-results" class="flow-step" hidden>
+        <section
+          class="card card--results card--results-simple"
+          aria-labelledby="results-heading"
+        >
+          <h2 id="results-heading" class="card__title">Resultado</h2>
+
+          <div class="result-hero">
+            <p class="result-hero__label">Custo total no futuro</p>
+            <p id="result-fv" class="result-hero__value" aria-live="polite"></p>
+          </div>
+
+          <div class="result-hero">
+            <p class="result-hero__label">Equivalente em horas de trabalho</p>
+            <p id="result-hours" class="result-hero__value" aria-live="polite"></p>
+            <div class="field result-hero__field">
+              <label for="monthly-salary">Salário mensal base (R$)</label>
+              <input
+                id="monthly-salary"
+                name="monthly-salary"
+                type="text"
+                inputmode="decimal"
+                autocomplete="off"
+                spellcheck="false"
+                aria-describedby="result-hourly-note"
+              />
+            </div>
+            <p id="result-hourly-note" class="muted small result-hero__note"></p>
+          </div>
+
+          <button type="button" id="btn-back" class="btn-secondary">
+            Nova simulação
+          </button>
+        </section>
+      </div>
+    </main>
+
+    <dialog
+      id="scenario-dialog"
+      class="scenario-dialog"
+      aria-labelledby="scenario-dialog-title"
+    >
+      <form id="scenario-form" class="scenario-dialog__form stack">
+        <h2 id="scenario-dialog-title" class="scenario-dialog__title">
+          Parâmetros do cenário
+        </h2>
+        <p class="muted small scenario-dialog__intro">
+          Estes valores substituem os padrões do site neste aparelho. Salve para
+          aplicar.
+        </p>
+
+        <div class="field">
+          <label for="scenario-monthly-return">Taxa de juros mensal (%)</label>
+          <input
+            id="scenario-monthly-return"
+            name="scenario-monthly-return"
+            type="number"
+            inputmode="decimal"
+            min="0"
+            max="100"
+            step="0.01"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="scenario-monthly-income">Salário médio (R$/mês)</label>
+          <input
+            id="scenario-monthly-income"
+            name="scenario-monthly-income"
+            type="text"
+            inputmode="decimal"
+            autocomplete="off"
+            spellcheck="false"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="scenario-life-expectancy">Expectativa de vida (anos)</label>
+          <input
+            id="scenario-life-expectancy"
+            name="scenario-life-expectancy"
+            type="number"
+            inputmode="numeric"
+            min="1"
+            max="120"
+            step="1"
+            required
+          />
+        </div>
+
+        <div class="scenario-dialog__actions">
+          <button type="button" class="btn-secondary" id="btn-scenario-restore">
+            Usar padrões do site
+          </button>
+          <div class="scenario-dialog__actions-row">
+            <button type="button" class="btn-secondary" id="btn-scenario-cancel">
+              Cancelar
+            </button>
+            <button type="submit" class="btn-primary" id="btn-scenario-save">
+              Salvar
+            </button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <footer class="site-footer">
+      <p>
+        <strong>Aviso:</strong> ferramenta educativa. Não é recomendação de
+        investimento. Taxas reais mudam; impostos e riscos não estão modelados em
+        detalhe.
+      </p>
+      <p class="muted small">
+        Não use este site como única base para decisões financeiras.
+      </p>
+    </footer>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

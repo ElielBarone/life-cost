@@ -1,0 +1,47 @@
+{
+  "asOf": "2026-04-03",
+  "items": [
+    {
+      "id": "celta-2013",
+      "name": "Chevrolet Celta 2013",
+      "description": "Usado, entrada — valor ilustrativo de mercado.",
+      "priceBRL": 25000,
+      "image": "assets/img/celta-2013.jpg"
+    },
+    {
+      "id": "civic-2013",
+      "name": "Honda Civic 2013",
+      "description": "Sedã usado — faixa média ilustrativa.",
+      "priceBRL": 65000,
+      "image": "assets/img/civic-2013.jpg"
+    },
+    {
+      "id": "onix-2026",
+      "name": "Chevrolet Onix 2026",
+      "description": "Novo popular — estimativa de tabela.",
+      "priceBRL": 99000,
+      "image": "assets/img/onix-2026.png"
+    },
+    {
+      "id": "dolphin-2026",
+      "name": "BYD Dolphin 2026",
+      "description": "Elétrico — preço ilustrativo.",
+      "priceBRL": 125000,
+      "image": "assets/img/dolphin-2026.png"
+    },
+    {
+      "id": "dualtron-x-limited",
+      "name": "Dualtron X Limited",
+      "description": "Patinete elétrico premium — faixa de mercado ilustrativa.",
+      "priceBRL": 3050,
+      "image": "assets/img/patinete-dualtron-x-limited.jpg"
+    },
+    {
+      "id": "civic-2024",
+      "name": "Honda Civic 2024",
+      "description": "Sedã zero km — faixa alta ilustrativa.",
+      "priceBRL": 210000,
+      "image": "assets/img/civic-2024.jpeg"
+    }
+  ]
+}
