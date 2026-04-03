@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Lista de bens de exemplo para o simulador Custo ao longo da vida."
+      content="Detalhamento ilustrativo de como o custo futuro e os meses de trabalho foram calculados na última simulação."
     />
-    <title>Custo ao longo da vida — Bens de exemplo</title>
+    <title>Memória de cálculo — Custo ao longo da vida</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -20,37 +20,32 @@
     />
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
-  <body class="goods-page">
+  <body>
     <a class="skip-link" href="#main">Ir ao conteúdo</a>
     <header class="site-header">
       <div class="site-header__bar">
         <div class="site-header__brand">
           <span
-            class="material-symbols-outlined site-header__icon"
+            class="material-symbols-outlined site-header__icon site-header__icon--heartbeat"
             aria-hidden="true"
-            >inventory_2</span
+            >monitor_heart</span
           >
-          <span class="site-header__wordmark">Bens de exemplo</span>
+          <span class="site-header__wordmark">Custo ao longo da vida</span>
         </div>
-        <nav class="site-nav site-nav--bar" aria-label="Navegação">
-          <a href="./index.html">Simulador</a>
-        </nav>
+        <a class="btn-scenario btn-scenario--link" href="./index.html">Simulador</a>
       </div>
     </header>
 
-    <main id="main" class="main">
-      <p class="site-tagline--goods">
-        Valores ilustrativos. Abra o simulador com o item pré-selecionado pelo
-        botão em cada card.
-      </p>
-      <p id="goods-status" class="muted" aria-live="polite"></p>
-      <ul id="goods-grid" class="goods-grid"></ul>
+    <main id="main" class="main memory-main">
+      <div id="memory-app"></div>
     </main>
 
     <footer class="site-footer">
-      <p class="muted small">Dados em <code>assets/data/goods.json</code>.</p>
+      <p class="muted small">
+        Ferramenta educativa; taxas e horizonte são ilustrativos.
+      </p>
     </footer>
 
-    <script type="module" src="./js/goods-page.js"></script>
+    <script type="module" src="./js/memory-page.js"></script>
   </body>
 </html>

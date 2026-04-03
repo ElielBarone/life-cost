@@ -5,36 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Antes de comprar, pense no custo total ao final da vida útil: veja quanto o mesmo valor poupado hoje poderia se tornar (cenário ilustrativo) e o equivalente em horas de trabalho."
+      content="Antes de comprar, pense no custo total ao final da vida útil: veja quanto o mesmo valor poupado hoje poderia se tornar (cenário ilustrativo) e o equivalente em meses de trabalho."
     />
     <title>Custo ao longo da vida — Custo de oportunidade</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
     <a class="skip-link" href="#main">Ir ao conteúdo</a>
     <header class="site-header">
-      <div class="site-header__inner">
-        <div class="site-header__top">
-          <h1 class="site-title">Custo ao longo da vida</h1>
-          <button
-            type="button"
-            class="btn-scenario"
-            id="btn-scenario-open"
-            aria-haspopup="dialog"
-            aria-controls="scenario-dialog"
+      <div class="site-header__bar">
+        <div class="site-header__brand">
+          <span
+            class="material-symbols-outlined site-header__icon site-header__icon--heartbeat"
+            aria-hidden="true"
+            >monitor_heart</span
           >
-            Parâmetros do cenário
-          </button>
+          <span class="site-header__wordmark">Custo ao longo da vida</span>
         </div>
-        <p class="site-tagline">
+        <button
+          type="button"
+          class="btn-scenario"
+          id="btn-scenario-open"
+          aria-haspopup="dialog"
+          aria-controls="scenario-dialog"
+        >
+          Parâmetros do cenário
+        </button>
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="hero">
+        <h1 class="hero__title">Custo ao longo da vida</h1>
+        <p class="hero__tagline">
           Antes de comprar, pense no custo total ao final da vida útil: esse
           mesmo valor, poupado hoje, poderia se tornar
           <span id="site-tagline-fv">R$?</span>.
         </p>
       </div>
-    </header>
 
-    <main id="main" class="main">
       <div id="step-input" class="flow-step">
         <form id="calc-form" class="stack">
           <section class="card card--inputs" aria-labelledby="inputs-heading">
@@ -101,8 +120,12 @@
           </div>
 
           <div class="result-hero">
-            <p class="result-hero__label">Equivalente em horas de trabalho</p>
-            <p id="result-hours" class="result-hero__value" aria-live="polite"></p>
+            <p class="result-hero__label">Equivalente em meses de trabalho</p>
+            <p
+              id="result-months"
+              class="result-hero__value"
+              aria-live="polite"
+            ></p>
             <div class="field result-hero__field">
               <label for="monthly-salary">Salário mensal base (R$)</label>
               <input
@@ -112,15 +135,27 @@
                 inputmode="decimal"
                 autocomplete="off"
                 spellcheck="false"
-                aria-describedby="result-hourly-note"
+                aria-describedby="result-salary-note"
               />
             </div>
-            <p id="result-hourly-note" class="muted small result-hero__note"></p>
+            <p id="result-salary-note" class="muted small result-hero__note"></p>
           </div>
 
           <button type="button" id="btn-back" class="btn-secondary">
             Nova simulação
           </button>
+
+          <div class="result-memory-wrap">
+            <p class="result-memory-wrap__hint">
+              Veja como o custo futuro e os meses de trabalho foram obtidos.
+            </p>
+            <a class="result-memory-link" href="./memory.html">
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >info</span
+              >
+              Memória de cálculo
+            </a>
+          </div>
         </section>
       </div>
     </main>
@@ -130,68 +165,99 @@
       class="scenario-dialog"
       aria-labelledby="scenario-dialog-title"
     >
-      <form id="scenario-form" class="scenario-dialog__form stack">
-        <h2 id="scenario-dialog-title" class="scenario-dialog__title">
-          Parâmetros do cenário
-        </h2>
-        <p class="muted small scenario-dialog__intro">
+      <form id="scenario-form" class="scenario-dialog__form">
+        <header class="scenario-dialog__header">
+          <div class="scenario-dialog__header-start">
+            <button
+              type="button"
+              class="scenario-dialog__icon-btn"
+              id="btn-scenario-close"
+              aria-label="Fechar"
+            >
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >close</span
+              >
+            </button>
+            <h2 id="scenario-dialog-title" class="scenario-dialog__title">
+              Parâmetros do cenário
+            </h2>
+          </div>
+          <button
+            type="button"
+            class="scenario-dialog__text-btn"
+            id="btn-scenario-reset-header"
+          >
+            Redefinir
+          </button>
+        </header>
+
+        <p class="scenario-dialog__intro">
           Estes valores substituem os padrões do site neste aparelho. Salve para
           aplicar.
         </p>
 
-        <div class="field">
-          <label for="scenario-monthly-return">Taxa de juros mensal (%)</label>
-          <input
-            id="scenario-monthly-return"
-            name="scenario-monthly-return"
-            type="number"
-            inputmode="decimal"
-            min="0"
-            max="100"
-            step="0.01"
-            required
-          />
-        </div>
+        <div class="scenario-dialog__fields">
+          <div class="field scenario-dialog-field">
+            <label for="scenario-monthly-return">Taxa de juros mensal (%)</label>
+            <div class="scenario-dialog-field__shell">
+              <input
+                id="scenario-monthly-return"
+                name="scenario-monthly-return"
+                class="scenario-dialog-field__input"
+                type="number"
+                inputmode="decimal"
+                min="0"
+                max="100"
+                step="0.01"
+                placeholder="0,00"
+                required
+              />
+            </div>
+          </div>
 
-        <div class="field">
-          <label for="scenario-monthly-income">Salário médio (R$/mês)</label>
-          <input
-            id="scenario-monthly-income"
-            name="scenario-monthly-income"
-            type="text"
-            inputmode="decimal"
-            autocomplete="off"
-            spellcheck="false"
-            required
-          />
-        </div>
+          <div class="field scenario-dialog-field">
+            <label for="scenario-monthly-income">Salário médio (R$/mês)</label>
+            <div class="scenario-dialog-field__shell">
+              <input
+                id="scenario-monthly-income"
+                name="scenario-monthly-income"
+                class="scenario-dialog-field__input"
+                type="text"
+                inputmode="decimal"
+                autocomplete="off"
+                spellcheck="false"
+                required
+              />
+            </div>
+          </div>
 
-        <div class="field">
-          <label for="scenario-life-expectancy">Expectativa de vida (anos)</label>
-          <input
-            id="scenario-life-expectancy"
-            name="scenario-life-expectancy"
-            type="number"
-            inputmode="numeric"
-            min="1"
-            max="120"
-            step="1"
-            required
-          />
+          <div class="field scenario-dialog-field">
+            <label for="scenario-life-expectancy"
+              >Expectativa de vida (anos)</label
+            >
+            <div class="scenario-dialog-field__shell">
+              <input
+                id="scenario-life-expectancy"
+                name="scenario-life-expectancy"
+                class="scenario-dialog-field__input"
+                type="number"
+                inputmode="numeric"
+                min="1"
+                max="120"
+                step="1"
+                required
+              />
+            </div>
+          </div>
         </div>
 
         <div class="scenario-dialog__actions">
+          <button type="submit" class="btn-primary" id="btn-scenario-save">
+            Salvar
+          </button>
           <button type="button" class="btn-secondary" id="btn-scenario-restore">
             Usar padrões do site
           </button>
-          <div class="scenario-dialog__actions-row">
-            <button type="button" class="btn-secondary" id="btn-scenario-cancel">
-              Cancelar
-            </button>
-            <button type="submit" class="btn-primary" id="btn-scenario-save">
-              Salvar
-            </button>
-          </div>
         </div>
       </form>
     </dialog>

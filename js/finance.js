@@ -56,6 +56,11 @@ export function workHoursForAmount(amountBrl, hourlyRate) {
   return amountBrl / hourlyRate
 }
 
+export function workMonthsForAmount(amountBrl, monthlyIncomeBrl) {
+  if (monthlyIncomeBrl == null || monthlyIncomeBrl <= 0) return null
+  return amountBrl / monthlyIncomeBrl
+}
+
 export function doublingMonths(monthlyRateDecimal) {
   if (monthlyRateDecimal <= 0) return null
   return Math.log(2) / Math.log(1 + monthlyRateDecimal)

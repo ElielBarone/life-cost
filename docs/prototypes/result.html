@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Resultado da Simulação - Custo ao Longo da Vida</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#393939",
+                    "on-background": "#e5e2e1",
+                    "tertiary-fixed": "#ffe257",
+                    "secondary-fixed-dim": "#91d4bc",
+                    "on-secondary-container": "#80c2ab",
+                    "on-tertiary-fixed-variant": "#534600",
+                    "tertiary-fixed-dim": "#e2c635",
+                    "surface-container-low": "#1c1b1b",
+                    "surface-container-lowest": "#0e0e0e",
+                    "inverse-on-surface": "#313030",
+                    "inverse-primary": "#006b54",
+                    "tertiary": "#fffeff",
+                    "on-surface": "#e5e2e1",
+                    "on-tertiary-fixed": "#211b00",
+                    "primary-fixed-dim": "#00e0b3",
+                    "on-secondary": "#00382b",
+                    "on-tertiary": "#393000",
+                    "surface-container-high": "#2a2a2a",
+                    "on-primary": "#00382b",
+                    "on-primary-fixed-variant": "#00513f",
+                    "secondary-container": "#00513f",
+                    "error": "#ffb4ab",
+                    "primary-container": "#00ffcc",
+                    "outline-variant": "#3a4a44",
+                    "on-surface-variant": "#b9cbc2",
+                    "secondary": "#91d4bc",
+                    "on-tertiary-container": "#746300",
+                    "surface": "#0a0a0a",
+                    "secondary-fixed": "#adf0d8",
+                    "on-secondary-fixed": "#002118",
+                    "primary-fixed": "#24ffcd",
+                    "surface-dim": "#0a0a0a",
+                    "surface-container-highest": "#353534",
+                    "inverse-surface": "#e5e2e1",
+                    "on-primary-fixed": "#002118",
+                    "on-error-container": "#ffdad6",
+                    "error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#00513f",
+                    "background": "#0a0a0a",
+                    "surface-container": "#181818",
+                    "surface-variant": "#353534",
+                    "on-primary-container": "#00725a",
+                    "outline": "#333333",
+                    "primary": "#00FFCC",
+                    "tertiary-container": "#ffe150",
+                    "surface-tint": "#00e0b3",
+                    "on-error": "#690005"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "3xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope", "sans-serif"],
+                    "body": ["Manrope", "sans-serif"],
+                    "label": ["Manrope", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            min-height: 100dvh;
+            background-color: #0a0a0a;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<main class="min-h-screen px-6 py-12 flex flex-col items-center justify-center max-w-lg mx-auto">
+<!-- Header Section -->
+<div class="w-full mb-10 text-left">
+<h1 class="font-headline text-3xl font-bold text-on-surface mb-4">Custo ao longo da vida</h1>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+            Antes de comprar, pense no custo total ao final da vida útil: esse mesmo valor, poupado hoje, poderia se tornar R$ 254.340,00.
+        </p>
+<div class="w-full h-[1px] bg-outline mt-6"></div>
+</div>
+<!-- Main Results Card -->
+<div class="w-full bg-[#181818] border border-outline rounded-2xl p-8 mb-10 shadow-xl">
+<h2 class="text-on-surface font-semibold text-lg mb-8">Resultado</h2>
+<!-- Future Value -->
+<div class="mb-10">
+<p class="text-on-surface-variant text-sm font-medium mb-2">Custo total no futuro</p>
+<div class="font-headline text-4xl font-extrabold text-on-surface tracking-tight">
+                R$ 254.340,00
+            </div>
+</div>
+<div class="mb-10">
+<p class="text-on-surface-variant text-sm font-medium mb-2">Equivalente em meses de trabalho</p>
+<div class="font-headline text-4xl font-extrabold text-on-surface tracking-tight">
+                72,7 meses
+            </div>
+</div>
+<!-- Monthly Salary (Input Style) -->
+<div class="mb-8">
+<p class="text-on-surface-variant text-sm font-medium mb-3">Salário mensal base (R$)</p>
+<div class="w-full bg-[#202020] border border-outline rounded-xl px-4 py-4 text-on-surface font-medium">
+                3.500
+            </div>
+<p class="text-on-surface-variant text-[11px] mt-3 leading-relaxed">
+                Salário mensal base de R$ 3.500 (informe seu salário real). O custo futuro é dividido por esse valor para obter meses equivalentes.
+            </p>
+</div>
+<!-- Action Button -->
+<button class="w-full py-4 border-2 border-primary rounded-xl text-primary font-bold text-base transition-all hover:bg-primary/5 active:scale-[0.98]">
+            Nova simulação
+        </button>
+</div>
+<div class="w-full mb-10 flex flex-col items-center gap-3">
+<p class="text-on-surface-variant text-xs text-center leading-relaxed max-w-sm">
+            Quer ver de onde saem o custo futuro e os meses de trabalho?
+        </p>
+<a class="inline-flex items-center justify-center gap-2 rounded-full border border-outline bg-surface-container px-5 py-3 text-sm font-medium text-on-surface hover:border-primary/60 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40" href="result-memory.html" aria-label="Abrir memória de cálculo">
+<span class="material-symbols-outlined text-xl text-primary" aria-hidden="true">info</span>
+            Memória de cálculo
+        </a>
+</div>
+<!-- Footer Disclaimer -->
+<div class="w-full space-y-4">
+<p class="text-on-surface-variant text-[12px] leading-relaxed">
+<span class="font-bold text-on-surface">Aviso:</span> ferramenta educativa. Não é recomendação de investimento. Taxas reais mudam; impostos e riscos não estão modelados em detalhe.
+        </p>
+<p class="text-on-surface-variant text-[12px] leading-relaxed">
+            Não use este site como única base para decisões financeiras.
+        </p>
+</div>
+</main>
+<footer class="w-full py-12 px-6">
+<div class="flex flex-col items-center text-center space-y-4 max-w-md mx-auto border-t border-outline/30 pt-8">
+<p class="font-label text-[11px] text-on-surface-variant">© 2024 Custo ao Longo da Vida. Dados meramente ilustrativos.</p>
+<div class="flex gap-6">
+<a class="font-label text-[11px] text-on-surface-variant hover:text-primary transition-colors underline underline-offset-4" href="#">Termos de Uso</a>
+<a class="font-label text-[11px] text-on-surface-variant hover:text-primary transition-colors underline underline-offset-4" href="#">Aviso Legal</a>
+</div>
+</div>
+</footer>
+</body></html>

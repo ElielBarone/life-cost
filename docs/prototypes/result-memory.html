@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Memória de cálculo - Custo ao Longo da Vida</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#393939",
+                    "on-background": "#e5e2e1",
+                    "tertiary-fixed": "#ffe257",
+                    "secondary-fixed-dim": "#91d4bc",
+                    "on-secondary-container": "#80c2ab",
+                    "on-tertiary-fixed-variant": "#534600",
+                    "tertiary-fixed-dim": "#e2c635",
+                    "surface-container-low": "#1c1b1b",
+                    "surface-container-lowest": "#0e0e0e",
+                    "inverse-on-surface": "#313030",
+                    "inverse-primary": "#006b54",
+                    "tertiary": "#fffeff",
+                    "on-surface": "#e5e2e1",
+                    "on-tertiary-fixed": "#211b00",
+                    "primary-fixed-dim": "#00e0b3",
+                    "on-secondary": "#00382b",
+                    "on-tertiary": "#393000",
+                    "surface-container-high": "#2a2a2a",
+                    "on-primary": "#00382b",
+                    "on-primary-fixed-variant": "#00513f",
+                    "secondary-container": "#00513f",
+                    "error": "#ffb4ab",
+                    "primary-container": "#00ffcc",
+                    "outline-variant": "#3a4a44",
+                    "on-surface-variant": "#b9cbc2",
+                    "secondary": "#91d4bc",
+                    "on-tertiary-container": "#746300",
+                    "surface": "#0a0a0a",
+                    "secondary-fixed": "#adf0d8",
+                    "on-secondary-fixed": "#002118",
+                    "primary-fixed": "#24ffcd",
+                    "surface-dim": "#0a0a0a",
+                    "surface-container-highest": "#353534",
+                    "inverse-surface": "#e5e2e1",
+                    "on-primary-fixed": "#002118",
+                    "on-error-container": "#ffdad6",
+                    "error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#00513f",
+                    "background": "#0a0a0a",
+                    "surface-container": "#181818",
+                    "surface-variant": "#353534",
+                    "on-primary-container": "#00725a",
+                    "outline": "#333333",
+                    "primary": "#00FFCC",
+                    "tertiary-container": "#ffe150",
+                    "surface-tint": "#00e0b3",
+                    "on-error": "#690005"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "3xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope", "sans-serif"],
+                    "body": ["Manrope", "sans-serif"],
+                    "label": ["Manrope", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            min-height: 100dvh;
+            background-color: #0a0a0a;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<main class="min-h-screen px-6 py-12 flex flex-col max-w-lg mx-auto pb-24">
+<div class="w-full mb-8">
+<a class="inline-flex items-center gap-2 text-on-surface-variant text-sm font-medium hover:text-primary transition-colors" href="result.html">
+<span class="material-symbols-outlined text-lg" aria-hidden="true">arrow_back</span>
+            Voltar ao resultado
+        </a>
+</div>
+<div class="w-full mb-8 text-left">
+<h1 class="font-headline text-2xl font-bold text-on-surface mb-2">Memória de cálculo</h1>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+            Como o valor exibido na tela de resultado foi obtido neste exemplo (números ilustrativos do protótipo).
+        </p>
+<div class="w-full h-[1px] bg-outline mt-6"></div>
+</div>
+<div class="w-full bg-[#181818] border border-outline rounded-2xl p-8 shadow-xl space-y-8">
+<section>
+<h2 class="text-on-surface font-semibold text-base mb-4">Entradas usadas</h2>
+<ul class="text-sm text-on-surface-variant space-y-3 leading-relaxed">
+<li><span class="text-on-surface font-medium">Valor do bem (principal P):</span> R$ 60.000,00</li>
+<li><span class="text-on-surface font-medium">Sua idade:</span> 30 anos</li>
+<li><span class="text-on-surface font-medium">Salário mensal base:</span> R$ 3.500,00</li>
+</ul>
+</section>
+<section>
+<h2 class="text-on-surface font-semibold text-base mb-4">Custo total no futuro</h2>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-4">
+                O modelo assume que esse valor deixa de ser investido e rende a uma taxa mensal ilustrativa <span class="text-on-surface">r = 1% ao mês</span> (cenário fixo no produto, não digitado na tela principal).
+            </p>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-4">
+                Fórmula de juros compostos, mês a mês:
+            </p>
+<p class="font-mono text-sm text-primary-container bg-surface-container-high/50 border border-outline/50 rounded-xl px-4 py-3 mb-4">
+                VF = P × (1 + r)<sup class="text-xs">n</sup>
+            </p>
+<ul class="text-sm text-on-surface-variant space-y-2 leading-relaxed">
+<li><span class="text-on-surface">P</span> = R$ 60.000,00</li>
+<li><span class="text-on-surface">r</span> = 0,01 (1% ao mês)</li>
+<li><span class="text-on-surface">n</span> = 145 meses neste mock (≈ 12 anos), para manter o valor de tela legível; no app, <span class="text-on-surface">n</span> vem da idade e da expectativa de vida do cenário.</li>
+</ul>
+<p class="text-sm text-on-surface mt-4 font-headline font-bold">
+                VF ≈ R$ 254.340,00
+            </p>
+</section>
+<section>
+<h2 class="text-on-surface font-semibold text-base mb-4">Meses equivalentes de trabalho</h2>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-3">
+                Divide-se o custo futuro pelo salário mensal informado:
+            </p>
+<p class="font-mono text-sm text-primary-container bg-surface-container-high/50 border border-outline/50 rounded-xl px-4 py-3 mb-3">
+                meses = VF ÷ salário mensal
+            </p>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                254.340 ÷ 3.500 ≈ <span class="text-on-surface font-medium">72,7 meses</span>
+            </p>
+</section>
+</div>
+<div class="w-full mt-10 space-y-3">
+<p class="text-on-surface-variant text-[12px] leading-relaxed">
+<span class="font-bold text-on-surface">Lembrete:</span> taxas e expectativa de vida são ilustrativas; o app real usa os parâmetros em <span class="text-on-surface">config.js</span> e o horizonte derivado da sua idade.
+        </p>
+</div>
+</main>
+<footer class="w-full py-12 px-6">
+<div class="flex flex-col items-center text-center space-y-4 max-w-md mx-auto border-t border-outline/30 pt-8">
+<p class="font-label text-[11px] text-on-surface-variant">© 2024 Custo ao Longo da Vida. Dados meramente ilustrativos.</p>
+</div>
+</footer>
+</body></html>

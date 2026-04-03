@@ -1,4 +1,3 @@
-import { hoursPerMonthForHourlyEstimate } from './config.js'
 import {
   loadEffectiveScenario,
   saveScenarioToStorage,
@@ -9,9 +8,9 @@ import { loadGoodsCatalog, formatPriceBrl } from './catalog.js'
 import {
   effectiveHorizonMonths,
   futureValueCompound,
-  hourlyRateFromMonthly,
-  workHoursForAmount,
+  workMonthsForAmount,
 } from './finance.js'
+import { writeCalcMemorySnapshot } from './calc-memory.js'
 
 const moneyFmt = new Intl.NumberFormat('pt-BR', {
   style: 'currency',
@@ -23,13 +22,6 @@ const numFmt = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 1 })
 
 const brlAmountFmt = new Intl.NumberFormat('pt-BR', {
   minimumFractionDigits: 0,
-  maximumFractionDigits: 2,
-})
-
-const hourlyRateFmt = new Intl.NumberFormat('pt-BR', {
-  style: 'currency',
-  currency: 'BRL',
-  minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 })
 
@@ -59,9 +51,9 @@ function formatMoneyBrlInput(amount) {
   return brlAmountFmt.format(amount)
 }
 
-function formatHours(h) {
-  if (h == null || !Number.isFinite(h)) return '—'
-  return `${numFmt.format(h)} h`
+function formatMonths(m) {
+  if (m == null || !Number.isFinite(m)) return '—'
+  return `${numFmt.format(m)} meses`
 }
 
 function escapeHtml(s) {
@@ -87,12 +79,8 @@ function computeScenario(ageYears, priceBrl, monthlySalaryBrl, scenario) {
     null
   )
   const fv = futureValueCompound(priceBrl, rM, months)
-  const hourly = hourlyRateFromMonthly(
-    monthlySalaryBrl,
-    hoursPerMonthForHourlyEstimate
-  )
-  const hoursFv = workHoursForAmount(fv, hourly)
-  return { fv, hoursFv, hourly }
+  const monthsFv = workMonthsForAmount(fv, monthlySalaryBrl)
+  return { fv, monthsFv }
 }
 
 function setStep(els, which, opts = {}) {
@@ -118,27 +106,17 @@ function setStep(els, which, opts = {}) {
   }
 }
 
-function renderHourlyExplanation(monthlySalaryBrl, hourly) {
+function renderSalaryNote(monthlySalaryBrl) {
   if (!Number.isFinite(monthlySalaryBrl) || monthlySalaryBrl <= 0) {
-    return `Informe seu salário real no campo acima. A conversão usa ${hoursPerMonthForHourlyEstimate} h de trabalho por mês.`
+    return 'Informe seu salário real no campo acima para ver o equivalente em meses de trabalho.'
   }
-  if (hourly == null) {
-    return `Informe seu salário real no campo acima. A conversão usa ${hoursPerMonthForHourlyEstimate} h de trabalho por mês.`
-  }
-  return `Salário mensal base de ${moneyFmt.format(monthlySalaryBrl)} (informe seu salário real). Taxa horária estimada: ${hourlyRateFmt.format(hourly)} (${hoursPerMonthForHourlyEstimate} h/mês).`
+  return `Salário mensal base de ${moneyFmt.format(monthlySalaryBrl)} (informe seu salário real). O custo futuro é dividido por esse valor para obter meses equivalentes.`
 }
 
 function applySalaryToResults(els, futureValueBrl, monthlySalaryBrl) {
-  const hourly = hourlyRateFromMonthly(
-    monthlySalaryBrl,
-    hoursPerMonthForHourlyEstimate
-  )
-  const hoursFv = workHoursForAmount(futureValueBrl, hourly)
-  els.resultHours.textContent = formatHours(hoursFv)
-  els.resultHourlyNote.textContent = renderHourlyExplanation(
-    monthlySalaryBrl,
-    hourly
-  )
+  const monthsFv = workMonthsForAmount(futureValueBrl, monthlySalaryBrl)
+  els.resultMonths.textContent = formatMonths(monthsFv)
+  els.resultSalaryNote.textContent = renderSalaryNote(monthlySalaryBrl)
 }
 
 function renderResults(els, state) {
@@ -162,8 +140,8 @@ async function main() {
     monthlySalary: document.getElementById('monthly-salary'),
     resultFv: document.getElementById('result-fv'),
     siteTaglineFv: document.getElementById('site-tagline-fv'),
-    resultHours: document.getElementById('result-hours'),
-    resultHourlyNote: document.getElementById('result-hourly-note'),
+    resultMonths: document.getElementById('result-months'),
+    resultSalaryNote: document.getElementById('result-salary-note'),
     btnBack: document.getElementById('btn-back'),
     goodPickField: document.getElementById('good-pick-field'),
     goodPickGrid: document.getElementById('good-pick-grid'),
@@ -173,8 +151,30 @@ async function main() {
     scenarioMonthlyIncome: document.getElementById('scenario-monthly-income'),
     scenarioLifeExpectancy: document.getElementById('scenario-life-expectancy'),
     btnScenarioOpen: document.getElementById('btn-scenario-open'),
-    btnScenarioCancel: document.getElementById('btn-scenario-cancel'),
+    btnScenarioClose: document.getElementById('btn-scenario-close'),
+    btnScenarioResetHeader: document.getElementById('btn-scenario-reset-header'),
     btnScenarioRestore: document.getElementById('btn-scenario-restore'),
+  }
+
+  function persistCalcMemory() {
+    if (lastCalcInput == null || lastFutureValueBrl == null) return
+    const rawSal = parseMoneyBrl(els.monthlySalary.value)
+    const sal =
+      Number.isFinite(rawSal) && rawSal > 0 ? rawSal : monthlySalaryBrl
+    const months = effectiveHorizonMonths(
+      lastCalcInput.ageYears,
+      scenario.lifeExpectancyYears,
+      null
+    )
+    writeCalcMemorySnapshot({
+      ageYears: lastCalcInput.ageYears,
+      priceBrl: lastCalcInput.priceBrl,
+      monthlyReturnPercent: scenario.monthlyReturnPercent,
+      lifeExpectancyYears: scenario.lifeExpectancyYears,
+      horizonMonths: months,
+      futureValueBrl: lastFutureValueBrl,
+      monthlySalaryBrl: sal,
+    })
   }
 
   function scenarioFormIntoScenario() {
@@ -242,22 +242,26 @@ async function main() {
     )
     lastFutureValueBrl = state.fv
     renderResults(els, { ...state, monthlySalaryBrl })
+    persistCalcMemory()
     setStep(els, 'results', { futureValueBrl: state.fv })
   }
 
   els.btnScenarioOpen.addEventListener('click', () => openScenarioDialog())
 
-  els.btnScenarioCancel.addEventListener('click', () => {
+  els.btnScenarioClose.addEventListener('click', () => {
     els.scenarioDialog.close()
   })
 
-  els.btnScenarioRestore.addEventListener('click', () => {
+  function restoreScenarioSiteDefaults() {
     clearScenarioStorage()
     scenario = { ...defaultScenarioValues(), hasStoredOverrides: false }
     fillScenarioFormFromState()
     monthlySalaryBrl = scenario.monthlyIncomeBrl
     refreshResultsAfterScenarioChange()
-  })
+  }
+
+  els.btnScenarioRestore.addEventListener('click', restoreScenarioSiteDefaults)
+  els.btnScenarioResetHeader.addEventListener('click', restoreScenarioSiteDefaults)
 
   els.scenarioForm.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -383,6 +387,7 @@ async function main() {
     const state = computeScenario(age, price, monthlySalaryBrl, scenario)
     lastFutureValueBrl = state.fv
     renderResults(els, { ...state, monthlySalaryBrl })
+    persistCalcMemory()
     setStep(els, 'results', { futureValueBrl: state.fv })
     els.stepResults.scrollIntoView({ behavior: 'smooth', block: 'start' })
   })
@@ -404,6 +409,7 @@ async function main() {
       lastFutureValueBrl,
       Number.isFinite(raw) && raw > 0 ? raw : NaN
     )
+    persistCalcMemory()
   })
 
   els.monthlySalary.addEventListener('blur', () => {
@@ -416,6 +422,7 @@ async function main() {
       els.monthlySalary.value = formatMoneyBrlInput(monthlySalaryBrl)
     }
     applySalaryToResults(els, lastFutureValueBrl, monthlySalaryBrl)
+    persistCalcMemory()
   })
 }
 

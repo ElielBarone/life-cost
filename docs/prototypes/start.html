@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Custo ao Longo da Vida - Calculadora</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#393939",
+                        "on-background": "#e5e2e1",
+                        "tertiary-fixed": "#ffe257",
+                        "secondary-fixed-dim": "#91d4bc",
+                        "on-secondary-container": "#80c2ab",
+                        "on-tertiary-fixed-variant": "#534600",
+                        "tertiary-fixed-dim": "#e2c635",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-container-lowest": "#0e0e0e",
+                        "inverse-on-surface": "#313030",
+                        "inverse-primary": "#006b54",
+                        "tertiary": "#fffeff",
+                        "on-surface": "#e5e2e1",
+                        "on-tertiary-fixed": "#211b00",
+                        "primary-fixed-dim": "#00e0b3",
+                        "on-secondary": "#00382b",
+                        "on-tertiary": "#393000",
+                        "surface-container-high": "#2a2a2a",
+                        "on-primary": "#00382b",
+                        "on-primary-fixed-variant": "#00513f",
+                        "secondary-container": "#00513f",
+                        "error": "#ffb4ab",
+                        "primary-container": "#00ffcc",
+                        "outline-variant": "#3a4a44",
+                        "on-surface-variant": "#b9cbc2",
+                        "secondary": "#91d4bc",
+                        "on-tertiary-container": "#746300",
+                        "surface": "#131313",
+                        "secondary-fixed": "#adf0d8",
+                        "on-secondary-fixed": "#002118",
+                        "primary-fixed": "#24ffcd",
+                        "surface-dim": "#131313",
+                        "surface-container-highest": "#353534",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary-fixed": "#002118",
+                        "on-error-container": "#ffdad6",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#00513f",
+                        "background": "#131313",
+                        "surface-container": "#201f1f",
+                        "surface-variant": "#353534",
+                        "on-primary-container": "#00725a",
+                        "outline": "#83958d",
+                        "primary": "#fdfffc",
+                        "tertiary-container": "#ffe150",
+                        "surface-tint": "#00e0b3",
+                        "on-error": "#690005"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            font-family: 'Inter', sans-serif;
+        }
+        .premium-gradient-btn {
+            background: linear-gradient(135deg, #00FFCC 0%, #00E0B3 100%);
+        }
+        .premium-glass {
+            background: rgba(57, 57, 57, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .glow-focus:focus-within {
+            box-shadow: 0 0 8px 0 rgba(0, 224, 179, 0.4);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#131313] dark:bg-[#131313] bg-gradient-to-b from-[#1C1B1B] to-transparent">
+<div class="flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#00FFCC]" data-icon="monitor_heart">monitor_heart</span>
+<h1 class="text-lg font-headline tracking-tighter text-[#00FFCC] font-bold">Custo ao Longo da Vida</h1>
+</div>
+
+<button class="bg-primary-container/10 border border-primary-container/20 text-primary-container px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-primary-container/20 transition-colors">
+                Parâmetros do cenário
+            </button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-24 pb-32 px-6 max-w-2xl mx-auto w-full flex flex-col">
+<section class="space-y-6 mb-8">
+<h2 class="text-4xl md:text-5xl font-headline font-extrabold tracking-tight text-primary leading-[1.1]">
+                Custo ao longo da vida
+            </h2>
+<p class="text-on-surface-variant text-lg leading-relaxed">
+                Antes de comprar, pense no custo total ao final da vida útil: esse mesmo valor, poupado hoje, poderia se tornar R$?
+            </p>
+</section>
+<!-- Main Container: Seu cenário -->
+<section class="bg-surface-container-low border border-outline-variant/10 p-6 md:p-8 rounded-[2rem] shadow-2xl relative overflow-hidden">
+<h3 class="text-lg font-bold text-on-surface mb-6">Seu cenário</h3>
+<form class="space-y-6 relative z-10">
+<!-- Input Age -->
+<div class="space-y-2 group">
+<label class="block text-sm font-label font-medium text-on-surface group-focus-within:text-primary-fixed-dim transition-colors" for="idade">
+                        Sua idade
+                    </label>
+<div class="relative glow-focus transition-all duration-300">
+<input class="w-full bg-surface-container-highest/50 border border-outline-variant/20 rounded-xl py-3.5 px-4 text-on-surface placeholder:text-surface-bright focus:ring-1 focus:ring-surface-tint outline-none transition-all" id="idade" type="number" value="30"/>
+</div>
+</div>
+<!-- Input Value -->
+<div class="space-y-2 group">
+<label class="block text-sm font-label font-medium text-on-surface group-focus-within:text-primary-fixed-dim transition-colors" for="valor">
+                        Valor do bem (R$)
+                    </label>
+<div class="relative glow-focus transition-all duration-300">
+<input class="w-full bg-surface-container-highest/50 border border-outline-variant/20 rounded-xl py-3.5 px-4 text-on-surface placeholder:text-surface-bright focus:ring-1 focus:ring-surface-tint outline-none transition-all" id="valor" type="text" value="60.000"/>
+</div>
+</div>
+<!-- Ou escolha um exemplo -->
+<div class="space-y-4 pt-4">
+<label class="block text-sm font-label font-medium text-on-surface">Ou escolha um exemplo</label>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+<!-- Card 1 -->
+<button class="group flex flex-col bg-surface-container-highest/30 border border-outline-variant/10 rounded-xl overflow-hidden hover:border-primary/30 transition-all text-left" type="button">
+<img alt="Celta" class="w-full h-24 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKYq5GO99r191aEIDV9OwoymdC9VNK-5GRlv_pGLdFzhn7GM-ob_OB0IrYGMpD5k_1ZFj2rn7OWzCNc9YfNxWlEBvIA7IsD22b829Z1J3xovjXJGjn0S-WKTe8oFp2F7n1Y5h29GMrPo-nNcMVvFuREh4LLxueEC8SPUBgQL8fPEfSmuTZp-vVfa1DR4y-UWckghsJyZt7F4EEV6GYgwGZsqPukuK891Dq6VubSp1lvT3xtgpQk5Qhr1R8bYwkh2NqyNL0VgfwHa1V"/>
+<div class="p-3 space-y-1">
+<p class="text-[10px] md:text-xs font-bold text-on-surface leading-tight">Chevrolet Celta 2013</p>
+<p class="text-[10px] md:text-xs font-bold text-primary-container">R$ 25.000,00</p>
+</div>
+</button>
+<!-- Card 2 -->
+<button class="group flex flex-col bg-surface-container-highest/30 border border-outline-variant/10 rounded-xl overflow-hidden hover:border-primary/30 transition-all text-left" type="button">
+<img alt="Civic" class="w-full h-24 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLwxwntWEdjJEnZO7BAs6KAgpaq3SmASTcJ14ugNp7df87gIBe1MSoKAA05Mlbgrfm36o9hHb2QnlHFtmDxBhdIdE5hpEVvod62au6V3_dF6CfgtDtNPsrya8oVNO_yaEZSnOuq7ONAqHEtFU33-DLYg04L8lK6x-jOtuU_ifd_rRSp59wOODs2960fNlfetv1unee33YIjFeScyukcgtXXVC_rZF4-e6fgTWsJQI7oeobrVWdxySuAiy04vtbMdk2vk8oFC3vdGly"/>
+<div class="p-3 space-y-1">
+<p class="text-[10px] md:text-xs font-bold text-on-surface leading-tight">Honda Civic 2013</p>
+<p class="text-[10px] md:text-xs font-bold text-primary-container">R$ 65.000,00</p>
+</div>
+</button>
+<!-- Card 3 -->
+<button class="group flex flex-col bg-surface-container-highest/30 border border-outline-variant/10 rounded-xl overflow-hidden hover:border-primary/30 transition-all text-left" type="button">
+<img alt="Onix" class="w-full h-24 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0EL0Xml5i0zhIw7zPzIzcRpw7-Z-AT71Psh15g2QLhGUvw2lQ-_16xqD87-OCFLUdyG_LAY4k-MNYPTs166QRo0PtvL6cdGRIi0Jvi7uULzrw2ppYhFrCKDxngycHLubhXHigoCNHmabT__TNW9FUO-FT07sxD2lcH1qu1I43uWS7EAHlrY8NbFBfyjWJzYM7bim6KJXBI4a-ucVUiXdT1TjFYuiqUGdsrAad8u3nCWUuz6lN1Q4MqrUBjM8cVnNKNF0jq0uEcWmf"/>
+<div class="p-3 space-y-1">
+<p class="text-[10px] md:text-xs font-bold text-on-surface leading-tight">Chevrolet Onix 2024</p>
+<p class="text-[10px] md:text-xs font-bold text-primary-container">R$ 99.000,00</p>
+</div>
+</button>
+<!-- Card 4 -->
+<button class="group flex flex-col bg-surface-container-highest/30 border border-outline-variant/10 rounded-xl overflow-hidden hover:border-primary/30 transition-all text-left" type="button">
+<img alt="Dolphin" class="w-full h-24 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVG-cMssX0kopxWTdjetB9qH-rI4KDmgpmBl_8f12yL5FqR5yUJWreuwIcNIe7vpCD2ckdbH5RJsQUvUMkHSlNCohyYESwZTTlwyKwuBLTtNKClXVuhcwVeGDe-fZKkzz9Bg2fPxas7a5F5_NjuK1aGvEiS269hUhcAOxEJlbubrB0bq8z3BqPqyDbdNIU6JsLVb7OxD_7zl89oy6wgjc9sV1Fw0LhL4utsRDAjPjSRMze9pxw0xiLW7hKXK_xkmMt0rtX-hEz9WzB"/>
+<div class="p-3 space-y-1">
+<p class="text-[10px] md:text-xs font-bold text-on-surface leading-tight">BYD Dolphin 2024</p>
+<p class="text-[10px] md:text-xs font-bold text-primary-container">R$ 125.000,00</p>
+</div>
+</button>
+<!-- Card 5 -->
+<button class="group flex flex-col bg-surface-container-highest/30 border border-outline-variant/10 rounded-xl overflow-hidden hover:border-primary/30 transition-all text-left" type="button">
+<img alt="Dualtron" class="w-full h-24 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBj3lxmdX7VOwQZKAL-5pinhurw4VOQPw0DYKHfTNMGP4_7WQK-38UH-JSLyOiYQdqMBHGvYLWa4KE0kymtEMW94GX2U3fQuoo8p-HUxDsyYMzBsaTOJskuZmZAx9Jy_3BlJnF1vpLIQQKeeoc5ux7ujQjCm5SPObaoYDdGOB3w_f39UAe7BU9QoH2MaZ_Nd5njLvqsDTWxkdRzaHO0C2U1_ef_LvEZfobsQQXUoMYX7LrUhG3L-v3lQaVetpKLYA76ySpT6SBfsI0_"/>
+<div class="p-3 space-y-1">
+<p class="text-[10px] md:text-xs font-bold text-on-surface leading-tight">Dualtron X Limited</p>
+<p class="text-[10px] md:text-xs font-bold text-primary-container">R$ 3.050,00</p>
+</div>
+</button>
+<!-- Card 6 -->
+<button class="group flex flex-col bg-surface-container-highest/30 border border-outline-variant/10 rounded-xl overflow-hidden hover:border-primary/30 transition-all text-left" type="button">
+<img alt="Civic 2024" class="w-full h-24 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-Kcpqt0I125tpm8ybJSXP2VqekRxMkp2t_woEJwFRSm3FFJRnPHhptLhObx1T558nO_kDpyQ5qV51kghQuFudzx7YUNO3dxQL9ucG62VTjpxNw7phHsHFza5ewUnG0y6cVb42yFyDK_Hb0ZlavotD8TIyF5CTdEGBOOvTrIJEGmV1qB5GiUMW64ZavYeV3FdASvBpbodPNsqbqGbhHVxLl7-MtzuWqv90eFgJjb685KGOp56MuX5lRRtyPvs6LzS9Fbpsn_hO0aSk"/>
+<div class="p-3 space-y-1">
+<p class="text-[10px] md:text-xs font-bold text-on-surface leading-tight">Honda Civic 2024</p>
+<p class="text-[10px] md:text-xs font-bold text-primary-container">R$ 210.000,00</p>
+</div>
+</button>
+</div>
+</div>
+<!-- Primary Action -->
+<button class="premium-gradient-btn w-full py-4 rounded-xl text-on-primary font-bold text-lg active:scale-[0.98] transition-all duration-200 shadow-lg shadow-primary-container/20 mt-6" type="submit">
+                    Calcular
+                </button>
+</form>
+</section>
+<!-- Additional Information -->
+<section class="mt-12 space-y-4 px-2">
+<p class="text-xs text-on-surface-variant leading-relaxed">
+<span class="font-bold text-on-surface">Aviso:</span> ferramenta educativa. Não é recomendação de investimento. Taxas reais mudam; impostos e riscos não estão modelados em detalhe.
+            </p>
+<p class="text-xs text-on-surface-variant">Não use este site como única base para decisões financeiras.</p>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 px-6 mt-auto border-t border-[#3A4A44]/10">
+<div class="flex flex-col items-center text-center space-y-4 max-w-md mx-auto">
+<p class="font-inter text-[11px] leading-relaxed text-gray-500">© 2024 Custo ao Longo da Vida. Dados meramente ilustrativos.</p>
+</div>
+</footer>
+
+</body></html>
