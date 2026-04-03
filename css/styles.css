@@ -89,11 +89,6 @@ body {
 }
 
 .site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
   background: linear-gradient(
     180deg,
     var(--surface-container-low) 0%,
@@ -107,10 +102,10 @@ body {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem 1rem;
+  gap: 1.125rem 1.25rem;
   max-width: 42rem;
   margin: 0 auto;
-  padding: 1rem 1.5rem;
+  padding: 1.125rem 1.5rem 1.375rem;
 }
 
 .site-header__brand {
@@ -549,7 +544,7 @@ body {
 .main {
   max-width: 42rem;
   margin: 0 auto;
-  padding: 5.5rem 1.5rem 5rem;
+  padding: 2rem 1.5rem 5rem;
 }
 
 .flow-step[hidden],
@@ -978,10 +973,6 @@ body {
 .site-footer strong {
   color: var(--on-surface);
   font-weight: 700;
-}
-
-.goods-page .main {
-  padding-top: 6rem;
 }
 
 .goods-grid {
